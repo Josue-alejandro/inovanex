@@ -32,6 +32,25 @@ const listPanel = ref([
     },
 ])
 
+const adminPanel = ref([
+    {
+        name: 'RADIOS',
+        link: '',
+    },
+    {
+        name: 'USUARIOS',
+        link: '',
+    },
+    {
+        name: 'PLANES',
+        link: '',
+    },
+    {
+        name: 'CONFIGURACIONES',
+        link: '',
+    },
+])
+
 //Variables
 const sidebarHandler = ref(true);
 const currentSelection = ref('RESUME')
@@ -80,6 +99,18 @@ const selectOption = (val) => {
                     {{ item.name }}
                     </li>
                     <p class="mini-title">ADMIN MENU</p>
+                    <li 
+                    v-for="item in adminPanel"
+                    class="list-item"
+                    @click="selectOption(item.name)"
+                    :style="{'background-color': currentSelection == item.name ? '#232325' : 'none',
+                    'color': currentSelection == item.name ? 'red' : none}">
+                    <IconsRadios class="sidebar-icon" v-show="item.name === adminPanel[0].name"></IconsRadios>
+                    <IconsUsers class="sidebar-icon" v-show="item.name === adminPanel[1].name"></IconsUsers>
+                    <IconsPlans class="sidebar-icon" v-show="item.name === adminPanel[2].name"></IconsPlans>
+                    <IconsSettings class="sidebar-icon" v-show="item.name === adminPanel[3].name"></IconsSettings>
+                    {{ item.name }}
+                    </li>
                 </ul>
             </div>
         </div>

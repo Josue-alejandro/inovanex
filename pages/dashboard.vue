@@ -13,7 +13,7 @@
                     <IconsServer></IconsServer>
                     <div class="par">
                         <p>Trafico</p>
-                        <p>124143</p>
+                        <p class="par-number">124143</p>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,8 @@
             <!-- Grafica de lineas -->
             <UiDivBox class="graph">
                 <div class="divTitle">
-                    <p>Datos de oyentes</p>
+                    <IconsListeners></IconsListeners>
+                    <p>DATOS DE OYENTES</p>
                 </div>
                 <DashboardListeners></DashboardListeners>
             </UiDivBox>
@@ -49,19 +50,26 @@
             <div class="chartsDiv">
                 <UiDivBox class="chartDonut">
                     <div class="divTitle">
-                        <p>Dispositivos</p>
+                        <IconsDevices></IconsDevices>
+                        <p>DISPOSITIVOS</p>
                     </div>
                     <DashboardDevicesData></DashboardDevicesData>
                 </UiDivBox>
                 <UiDivBox class="chartDonut">
                     <div class="divTitle">
-                        <p>Navegadores</p>
+                        <IconsBrowser></IconsBrowser>
+                        <p>NAVEGADORES</p>
                     </div>
                     <DashboardBrowserData></DashboardBrowserData>
                 </UiDivBox>
             </div>
         </div>
         <!-- Fin de la seccion de las graficas -->
+        <div>
+            <UiDivBox>
+                <DashboardWorldMap></DashboardWorldMap>
+            </UiDivBox>
+        </div>
     </div>
 </template>
 
@@ -93,6 +101,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #686767;
+}
+
+.par p{
+    margin-left: 1em;
+}
+
+.par-number{
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .traf-section{
@@ -130,6 +148,14 @@
 
 .divTitle{
     padding: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.divTitle p {
+    margin-left: 1em;
+    color: #686767;
 }
 
 .btn-green{

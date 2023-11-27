@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "chart.js": "^4.4.0",
+    "chartjs-chart-geo": "^4.2.7",
     "vue-chartjs": "^5.2.0"
   }
 }
