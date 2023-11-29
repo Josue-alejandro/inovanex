@@ -43,7 +43,7 @@ const adminPanel = ref([
     },
     {
         name: 'PLANES',
-        link: '',
+        link: 'planes',
     },
     {
         name: 'CONFIGURACIONES',
