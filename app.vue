@@ -12,7 +12,6 @@
   padding: 0px;
   font-family: 'Jost', sans-serif;
   font-family: 'Poppins', sans-serif;
-  font-family: 'Ubuntu', sans-serif;
   list-style: none;
 }
 </style>

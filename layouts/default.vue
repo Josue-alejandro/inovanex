@@ -11,12 +11,12 @@ Programador: Josue Alejandro
 
 
 //imports
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 
 const listPanel = ref([
     {
         name: 'RESUME',
-        link: '',
+        link: 'dashboard',
     },
     {
         name: 'ESTADISTICAS',
@@ -35,7 +35,7 @@ const listPanel = ref([
 const adminPanel = ref([
     {
         name: 'RADIOS',
-        link: '',
+        link: 'radios',
     },
     {
         name: 'USUARIOS',
@@ -52,18 +52,45 @@ const adminPanel = ref([
 ])
 
 //Variables
+const router = useRouter()
+const route = useRoute()
 const sidebarHandler = ref(true);
 const currentSelection = ref('RESUME')
+const radiosMenu = ref(false)
+const radiosArray = ref([
+    {
+        name: 'RadioRock App'
+    },
+    {
+        name: 'FM del Lago'
+    },
+    {
+        name: 'Radio Del Mar'
+    }
+])
 
 //funciones///
-
 // Abrir y cerrar el menu
 const sidebarOpen = () => sidebarHandler.value = !sidebarHandler.value
 
+// Abrir y cerrur menu de radios
+const radiosMenuHandler = () => radiosMenu.value = !radiosMenu.value
+
 // Seleccionar opcion
 const selectOption = (val) => {
-    
+    router.push({ name: val })
+    currentSelection.value = val
 }
+
+const radioText = (text) => {
+    const finalText = text.length > 16 ? text.slice(0, 17) + '...' : text.slice(0,17)
+    return finalText
+}
+
+onBeforeMount(() => {
+    const actualRoute = router.currentRoute.value.path.replace(/^\/+/, '')
+    currentSelection.value = actualRoute
+})
 
 </script>
 
@@ -74,8 +101,18 @@ const selectOption = (val) => {
             <IconsBurgerMenu @click="sidebarOpen" class="menu-icon"></IconsBurgerMenu>
             <img src="~/assets/logo.png">
         </div>
-        <div class="top-bar-container">
-            <UiDefaultButton>FM DEL LAGO</UiDefaultButton>
+        <div class="top-bar-container radio-select-container">
+            <UiDefaultButton @click="radiosMenuHandler">
+                <p class="radiosSelect">FM DEL LAGO</p>
+                <IconsChevronDown></IconsChevronDown>
+            </UiDefaultButton>
+            <Transition>
+                <div class="radio-list" v-if="radiosMenu">
+                    <ul>
+                        <li v-for="radio in radiosArray" :key="radio.name">{{ radio.name }}</li>
+                    </ul>
+                </div>
+            </Transition>
             <UiPowerSvg></UiPowerSvg>
         </div>
     </nav>
@@ -89,9 +126,9 @@ const selectOption = (val) => {
                     <li 
                     v-for="item in listPanel"
                     class="list-item"
-                    @click="selectOption(item.name)"
-                    :style="{'background-color': currentSelection == item.name ? '#232325' : 'none',
-                    'color': currentSelection == item.name ? 'red' : none}">
+                    @click="selectOption(item.link)"
+                    :style="{'background-color': currentSelection == item.link ? '#232325' : 'rgba(0,0,0,0)',
+                    'color': currentSelection == item.link ? 'red' : none}">
                     <IconsResumeIcon class="sidebar-icon" v-show="item.name === 'RESUME'"></IconsResumeIcon>
                     <IconsCalendarIcon class="sidebar-icon" v-show="item.name === 'PROGRAMACIÓN'"></IconsCalendarIcon>
                     <IconsProgrammingIcon class="sidebar-icon" v-show="item.name === 'ESTADISTICAS'"></IconsProgrammingIcon>
@@ -102,9 +139,9 @@ const selectOption = (val) => {
                     <li 
                     v-for="item in adminPanel"
                     class="list-item"
-                    @click="selectOption(item.name)"
-                    :style="{'background-color': currentSelection == item.name ? '#232325' : 'none',
-                    'color': currentSelection == item.name ? 'red' : none}">
+                    @click="selectOption(item.link)"
+                    :style="{'background-color': currentSelection == item.link ? '#232325' : 'rgba(0,0,0,0)',
+                    'color': currentSelection == item.link ? 'red' : none}">
                     <IconsRadios class="sidebar-icon" v-show="item.name === adminPanel[0].name"></IconsRadios>
                     <IconsUsers class="sidebar-icon" v-show="item.name === adminPanel[1].name"></IconsUsers>
                     <IconsPlans class="sidebar-icon" v-show="item.name === adminPanel[2].name"></IconsPlans>
@@ -115,7 +152,7 @@ const selectOption = (val) => {
             </div>
         </div>
         <!-- Fin Barra Lateral -->
-            <slot />
+        <slot />
     </div>
 </template>
 
@@ -188,6 +225,43 @@ const selectOption = (val) => {
     margin-top: 8px;
     margin-bottom: 8px;
     margin-right: 36px;
+}
+
+.radiosSelect{
+    margin-right: .7em;
+}
+
+.radio-select-container{
+    margin-right: 2em;
+}
+
+.radio-list{
+    background-color: white;
+    position: absolute;
+    top: 3.1em;
+    box-shadow: 0px 8px 11px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 8px 11px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 8px 11px -4px rgba(0,0,0,0.75);
+    width: 180px;
+    padding: 1em;
+    border-radius: 5px;
+    min-height: 500px;
+    overflow-y: scroll;
+}
+
+.radio-list ul li{
+    padding: 0.7em 0em 0.7em;
+    cursor: pointer;
+}
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 </style>
