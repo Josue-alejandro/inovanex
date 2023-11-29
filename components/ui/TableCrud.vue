@@ -8,6 +8,10 @@ const props = defineProps({
     data: {
         type: Array,
         required: true
+    },
+    titleTable: {
+      type: String,
+      required: true
     }
 })
 </script>
@@ -15,7 +19,7 @@ const props = defineProps({
 <template>
   <UiDivBox>
     <div class="header-div">
-      <h2 class="titleText">Lista de Radios</h2>
+      <h2 class="titleText">{{ titleTable }}</h2>
       <UiDefaultButton class="addText">+ Añadir</UiDefaultButton>
     </div>
     <table>

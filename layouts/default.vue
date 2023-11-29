@@ -39,7 +39,7 @@ const adminPanel = ref([
     },
     {
         name: 'USUARIOS',
-        link: '',
+        link: 'usuarios',
     },
     {
         name: 'PLANES',

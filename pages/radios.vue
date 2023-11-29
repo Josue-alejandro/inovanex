@@ -18,7 +18,7 @@ const data = [
 
 <template>
     <div class="content-component">
-        <UiTableCrud :headers="headers" :data="data"></UiTableCrud>
+        <UiTableCrud :headers="headers" :data="data" :title-table="'Lista de Radios'"></UiTableCrud>
     </div>
 </template>
 
