@@ -12,14 +12,23 @@ const ToEdit = ref(null)
 
 // Funciones
 const deleteRadio = async (id) => {
-    const url = 'http://localhost:4000/radios/delete'
+    const url = 'https://inovanex.onrender.com/radios/delete';
 
-    const response = await axios.delete(url, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: { id: id }, // El objeto JSON que se enviará en el cuerpo de la solicitud
-    });
+    try {
+        axios.delete(url, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: { id: id }, // El objeto JSON que se enviará en el cuerpo de la solicitud
+        }).then(res => {
+            console.log(res)
+        })
+
+        // Llamar a getData() después de recibir la respuesta
+        getData();
+    } catch (error) {
+        console.error('Error al eliminar la radio:', error);
+    }
 }
 
 const addRadio = () => {
@@ -33,7 +42,7 @@ const editRadio = (id) => {
     ToEdit.value = id
 }
 
-onBeforeMount( async () => {
+const getData = async () => {
     //conseguir informacion de los usuarios
     const users = await fetch('https://inovanex.onrender.com/radios');
     const data = await users.json()
@@ -49,6 +58,10 @@ onBeforeMount( async () => {
 
     const transformedData = transformData(data)
     dataRadios.value = transformedData
+}
+
+onBeforeMount( async () => {
+    getData()
 })
 </script>
 

@@ -15,7 +15,7 @@ const ToEdit = ref(null)
 //funciones
 
 const deleteUser = async (id) => {
-    const url = 'http://localhost:4000/users/delete'
+    const url = 'https://inovanex.onrender.com/users/delete'
 
     const response = await axios.delete(url, {
       headers: {
