@@ -14,13 +14,31 @@ const props = defineProps({
       required: true
     }
 })
+
+//emits
+const emit = defineEmits(['deleteValue', 'addValue', 'editValue']);
+
+//funciones
+// Eleminar un valor
+const deleteValue = (id) => {
+  emit('deleteValue', id)
+}
+
+// añadir un valor 
+const addValue = () => {
+  emit('addValue')
+}
+
+const editValue = (id) => {
+  emit('editValue', id)
+}
 </script>
 
 <template>
   <UiDivBox>
     <div class="header-div">
       <h2 class="titleText">{{ titleTable }}</h2>
-      <UiDefaultButton class="addText">+ Añadir</UiDefaultButton>
+      <UiDefaultButton class="addText" @click="addValue">+ Añadir</UiDefaultButton>
     </div>
     <table>
       <tr class="head-row">
@@ -34,12 +52,12 @@ const props = defineProps({
       <tr v-for="item in data" class="row">
         <td v-for="row in item.data" class="row-item">{{ row }}</td>
         <td>
-          <div>
-            <div class="option-container">
+          <div class="options">
+            <div class="option-container" @click="editValue(item.data[0])">
               <IconsEdit class="icon"></IconsEdit>
               <p class="edit">Editar</p>
             </div>
-            <div class="option-container">
+            <div class="option-container" @click="deleteValue(item.data[0])">
               <IconsDelete class="icon"></IconsDelete>
               <p class="delete">Eliminar</p>
             </div>
@@ -50,7 +68,7 @@ const props = defineProps({
   </UiDivBox>
 </template>
 
-<style>
+<style scoped>
 .head-tag{
   text-align: left;
   color: rgba(0, 0, 0, 0.6);
@@ -83,11 +101,12 @@ table{
   flex-direction: row;
   margin-bottom: 0.4em;
   cursor: pointer;
+  margin-right: 1em;
 }
 
 .icon{
   width: 20px;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .edit{
@@ -102,5 +121,10 @@ table{
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.options{
+  display: flex;
+  flex-wrap: nowrap;
 }
 </style>

@@ -62,7 +62,10 @@ const radiosArray = ref([
         name: 'RadioRock App'
     },
     {
-        name: 'FM del Lago'
+        name: 'FM del Lago',
+        jsonURL: 'https://cdn.instream.audio:9180/status-json.xsl',
+        active: true,
+        users: ['test']
     },
     {
         name: 'Radio Del Mar'
